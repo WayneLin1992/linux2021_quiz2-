@@ -90,12 +90,14 @@ static void list_free(struct list_head *list)
     if (!list) return;
 
     struct list_head *current = list;
-    while (current) {
+    while (current!=list ) {
         struct list_head *tmp = current;
-        current = tmp->next;
-        free(list_entry(current, list_ele_t, list)->value);
-        free(list_entry(current, list_ele_t, list));
+        current = current->next;
+        free(list_entry(tmp, list_ele_t, list)->value);
+        free(list_entry(tmp, list_ele_t, list));
     }
+    free(list_entry(current, list_ele_t, list)->value);
+    free(list_entry(current, list_ele_t, list));
 }
 
 bool list_insert_head(list_ele_t *head, char *s)
@@ -139,12 +141,12 @@ int main(void)
     while (fgets(buf, 256, fp))
         list_insert_head(head, buf);
     fclose(fp);
-//    list_show(&head->list);
+    //list_show(&head->list);
     list_merge_sort(head);
     //list_show(&head->list);
     assert(validate(head));
 
     list_free(&head->list);
-
+    
     return 0;
 }

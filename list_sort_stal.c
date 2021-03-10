@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "DDlinkedlist.h"
+#include "dlist.h"
 
 int main()
 {

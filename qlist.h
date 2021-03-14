@@ -47,50 +47,44 @@ void quicksort(node_t **list)
     list_concat(&result, right);
     *list = result;
 }
+bool non_quickSort(int *arr, int elements) {
 
-void quicksort_nonrecursive(node_t **list){
+      #define  MAX_LEVELS  1000
+
+      int  piv, beg[MAX_LEVELS], end[MAX_LEVELS], i=0, L, R ;
+
+      beg[0]=0; end[0]=elements;
+      while (i>=0) {
+        L=beg[i]; R=end[i]-1;
+        if (L<R) {
+          piv=arr[L]; if (i==MAX_LEVELS-1) return false;
+          while (L<R) {
+            while (arr[R]>=piv && L<R) R--; if (L<R) arr[L++]=arr[R];
+            while (arr[L]<=piv && L<R) L++; if (L<R) arr[R--]=arr[L]; }
+          arr[L]=piv; beg[i+1]=L+1; end[i+1]=end[i]; end[i++]=L; }
+        else {
+          i--; }}
+      return true; }
+
+void quicksort_nonrecursive(node_t**list, int count1){
     #define MAX_AY 100000
-    #define  MAX_LEVELS  1000
+    int arr[MAX_AY];
     node_t *ptr = *list;
-    int arr[MAX_AY ] ;
-    int j = 0;
+
+    int j=0;
     while(ptr){
         arr[j++] = ptr->value;
         ptr = ptr->next;
     }
-
-    int element = 20;
-
-    int  piv, beg[MAX_LEVELS], end[MAX_LEVELS], i=0, L, R ;
-    beg[0]=0; end[0]=element;
-    while (i>=0) {
-        L=beg[i]; R=end[i]-1;
-        if (L<R) {
-          piv=arr[L]; if (i==element-1) return ;
-          while (L<R) {
-            while (arr[R]>=piv && L<R)
-                R--;
-            if (L<R)
-                arr[L++]=arr[R];
-            while (arr[L]<=piv && L<R)
-                L++;
-            if (L<R)
-                arr[R--]=arr[L]; }
-          arr[L]=piv;
-          beg[i+1]=L+1;
-          end[i+1]=end[i];
-          end[i++]=L;
-          }
-        else {
-          i--; }
-    }
-    node_t*ptr1 = *list;
-    i = 0;
+    non_quickSort(arr,count1);
+    node_t *ptr1 = *list;
+    int i = 0;
     while(ptr1){
         ptr1->value = arr[i++];
         ptr1 = ptr1->next;
     }
 }
+
 static bool list_is_ordered(node_t *list) {
     bool first = true;
     int value;

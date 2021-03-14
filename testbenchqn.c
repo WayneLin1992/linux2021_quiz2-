@@ -8,12 +8,12 @@
 int main()
 {
     srand(time(NULL));
-    FILE *fp = fopen("sort_timeq.txt", "w");
+    FILE *fp = fopen("sort_timeqn.txt", "w");
     if (!fp) {
-        perror("failed to open sort_timeq.txt");
+        perror("failed to open sort_timeqn.txt");
         exit(EXIT_FAILURE);
     }
-    fprintf(fp,"count\tlist_sort(qsort)\n");
+    fprintf(fp,"count\tlist_sort(nonqsort)\n");
     for(int i=10000; i<100000;i= i+1000){
         node_t *list = NULL;
         int count = i;
@@ -24,7 +24,7 @@ int main()
         struct timespec time_end;
         long during = 0;
         clock_gettime(CLOCK_MONOTONIC, &time_start);
-        quicksort(&list);
+        quicksort_nonrecursive(&list,i);
         clock_gettime(CLOCK_MONOTONIC, &time_end);
         during = time_end.tv_nsec - time_start.tv_nsec;
         list_free(&list);

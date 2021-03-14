@@ -111,11 +111,6 @@ static void list_display(node_t *list) {
     printf("\n");
 }
 
-int random(void){
-    int a = rand();
-    return a;
-}
-
 static void list_free(node_t **list){
     node_t *ptr = *list;
     while(*list){

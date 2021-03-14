@@ -26,7 +26,7 @@ int main()
         clock_gettime(CLOCK_MONOTONIC, &time_start);
         list_merge_sort(head);
         clock_gettime(CLOCK_MONOTONIC, &time_end);
-        during = abs(time_end.tv_nsec - time_start.tv_nsec);
+        during = time_end.tv_nsec - time_start.tv_nsec;
         list_free(&head->list);
         fprintf(fp,"%d\t%ld \n",i,during);
     }
